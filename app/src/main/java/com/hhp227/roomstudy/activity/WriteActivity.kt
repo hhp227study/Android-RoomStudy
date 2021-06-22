@@ -38,16 +38,7 @@ class WriteActivity : AppCompatActivity() {
             setOnClickListener(::onClick)
             etInputTitle.setText(intent.getStringExtra(TITLE_MEMO))
             etInputText.setText(intent.getStringExtra(TEXT_MEMO))
-        }
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            android.R.id.home -> {
-                finish()
-                true
-            }
-            else -> super.onOptionsItemSelected(item)
+            toolbar.setNavigationOnClickListener { finish() }
         }
     }
 
