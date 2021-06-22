@@ -41,13 +41,13 @@ class MainActivity : AppCompatActivity() {
                         text = intent.getStringExtra(TEXT_MEMO) ?: ""
                     )
                 )
-                RESULT_SET -> getMemo(intent.getIntExtra(ID_MEMO, -1)) { memoDto ->
+                RESULT_SET -> mainViewModel.selectMemo(intent.getIntExtra(ID_MEMO, -1)) { memoDto ->
                     memoDto.title = intent.getStringExtra(TITLE_MEMO) ?: ""
                     memoDto.text = intent.getStringExtra(TEXT_MEMO) ?: ""
 
                     mainViewModel.updateMemo(memoDto)
                 }
-                RESULT_REMOVE -> getMemo(intent.getIntExtra(ID_MEMO, -1)) { memoDto ->
+                RESULT_REMOVE -> mainViewModel.selectMemo(intent.getIntExtra(ID_MEMO, -1)) { memoDto ->
                     mainViewModel.deleteMemo(memoDto)
                 }
             }
@@ -77,12 +77,6 @@ class MainActivity : AppCompatActivity() {
             fab.setOnClickListener {
                 activityResultLauncher.launch(Intent(baseContext, WriteActivity::class.java).putExtra(REQUEST_CODE, REQUEST_ADD))
             }
-        }
-    }
-
-    private fun getMemo(id: Int, result: (MemoDto) -> Unit) {
-        lifecycleScope.launch(Dispatchers.IO) {
-            result(mainViewModel.selectMemo(id))
         }
     }
 

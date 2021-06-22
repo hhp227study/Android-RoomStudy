@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.hhp227.roomstudy.data.MainRepository
 import com.hhp227.roomstudy.model.MemoDto
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class MainViewModel(private val repository: MainRepository) : ViewModel() {
@@ -11,7 +12,11 @@ class MainViewModel(private val repository: MainRepository) : ViewModel() {
 
     val test = "테스트"
 
-    fun selectMemo(id: Int) = repository.getMemo(id)
+    fun selectMemo(id: Int, result: (MemoDto) -> Unit) {
+        viewModelScope.launch(Dispatchers.IO) {
+            result(repository.getMemo(id))
+        }
+    }
 
     fun insertMemo(memoDto: MemoDto) {
         viewModelScope.launch {
