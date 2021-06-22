@@ -11,7 +11,7 @@ interface MemoDao {
     fun getMemoList(): LiveData<List<MemoDto>>
 
     @Query("Select * from memo_list where id = :id")
-    fun getMemo(id: Int): LiveData<MemoDto>
+    fun getMemo(id: Int): MemoDto
 
     @WorkerThread
     @Insert(onConflict = OnConflictStrategy.IGNORE)
