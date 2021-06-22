@@ -73,7 +73,6 @@ class MainActivity : AppCompatActivity() {
                             }
                     }
                 }
-                layoutManager
             }
             fab.setOnClickListener {
                 activityResultLauncher.launch(Intent(baseContext, WriteActivity::class.java).putExtra(REQUEST_CODE, REQUEST_ADD))
