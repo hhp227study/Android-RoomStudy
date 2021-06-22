@@ -35,12 +35,12 @@ class MainActivity : AppCompatActivity() {
     private val activityResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         result.data?.let { intent ->
             when (result.resultCode) {
-                RESULT_ADD -> mainViewModel.insertMemo(
-                    MemoDto(
-                        title = intent.getStringExtra(TITLE_MEMO) ?: "",
-                        text = intent.getStringExtra(TEXT_MEMO) ?: ""
-                    )
-                )
+                RESULT_ADD -> MemoDto(
+                    title = intent.getStringExtra(TITLE_MEMO) ?: "",
+                    text = intent.getStringExtra(TEXT_MEMO) ?: ""
+                ).also { memoDto ->
+                    mainViewModel.insertMemo(memoDto)
+                }
                 RESULT_SET -> mainViewModel.selectMemo(intent.getIntExtra(ID_MEMO, -1)) { memoDto ->
                     memoDto.title = intent.getStringExtra(TITLE_MEMO) ?: ""
                     memoDto.text = intent.getStringExtra(TEXT_MEMO) ?: ""
