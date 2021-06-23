@@ -8,7 +8,9 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import com.hhp227.roomstudy.R
 import androidx.databinding.DataBindingUtil.setContentView
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import com.hhp227.roomstudy.activity.WriteActivity.Companion.RESULT_ADD
 import com.hhp227.roomstudy.activity.WriteActivity.Companion.RESULT_REMOVE
@@ -21,6 +23,7 @@ import com.hhp227.roomstudy.model.MemoDto
 import com.hhp227.roomstudy.viewmodel.MainViewModel
 import com.hhp227.roomstudy.viewmodel.MainViewModelFactory
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
@@ -60,8 +63,12 @@ class MainActivity : AppCompatActivity() {
             setSupportActionBar(toolbar)
             recyclerView.apply {
                 adapter = MemoAdapter().apply {
-                    mainViewModel.memoList.observe(this@MainActivity) { list ->
-                        submitList(list)
+                    lifecycleScope.launch {
+                        mainViewModel.memoList
+                            .flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
+                            .collect { list ->
+                                submitList(list)
+                            }
                     }
                     setOnItemClickListener { _, p ->
                         Intent(baseContext, WriteActivity::class.java).putExtra(REQUEST_CODE, REQUEST_SET)

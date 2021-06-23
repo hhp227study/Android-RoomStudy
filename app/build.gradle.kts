@@ -42,7 +42,7 @@ android {
 
 dependencies {
     val roomVersion = "2.3.0"
-    val lifecycleVersion = "2.2.0"
+    val lifecycleVersion = "2.4.0-alpha01"
 
     implementation("androidx.core:core-ktx:1.5.0")
     implementation("androidx.appcompat:appcompat:1.3.0")
@@ -51,7 +51,9 @@ dependencies {
     implementation("androidx.room:room-runtime:$roomVersion")
     implementation("androidx.room:room-ktx:$roomVersion")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion")
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleVersion")
     kapt("androidx.room:room-compiler:$roomVersion")
+    kapt("androidx.lifecycle:lifecycle-compiler:$lifecycleVersion")
     testImplementation("junit:junit:4.+")
     androidTestImplementation("androidx.test.ext:junit:1.1.2")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.3.0")
