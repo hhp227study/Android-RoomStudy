@@ -12,6 +12,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.RecyclerView
 import com.hhp227.roomstudy.activity.WriteActivity.Companion.RESULT_ADD
 import com.hhp227.roomstudy.activity.WriteActivity.Companion.RESULT_REMOVE
 import com.hhp227.roomstudy.activity.WriteActivity.Companion.RESULT_SET
